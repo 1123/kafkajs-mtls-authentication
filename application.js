@@ -1,8 +1,17 @@
 const { Kafka } = require('kafkajs')
 
+
 const kafka = new Kafka({
   clientId: 'my-app',
-  brokers: ['localhost:9092']
+  brokers: ['pkc-75m1o.europe-west3.gcp.confluent.cloud:9092'],
+  // authenticationTimeout: 10000,
+  // reauthenticationThreshold: 10000,
+  ssl: true,
+  sasl: {
+    mechanism: 'plain', // scram-sha-256 or scram-sha-512
+    username: 'I6YIQ2KKRZBJRR3B',
+    password: 'uEVfFo2DONBGZzQxRhbza0OwIH0n3h2zafrSzViUE9rXtWxKPnTu/55gYDeJnIY7'
+  },
 })
 
 const producer = kafka.producer()
