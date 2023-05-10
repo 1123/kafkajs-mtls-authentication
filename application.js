@@ -3,14 +3,12 @@ const { Kafka } = require('kafkajs')
 
 const kafka = new Kafka({
   clientId: 'my-app',
-  brokers: ['pkc-75m1o.europe-west3.gcp.confluent.cloud:9092'],
+  brokers: ['kafka.mydomain.com:9092'],
   // authenticationTimeout: 10000,
   // reauthenticationThreshold: 10000,
-  ssl: true,
-  sasl: {
-    mechanism: 'plain', // scram-sha-256 or scram-sha-512
-    username: 'I6YIQ2KKRZBJRR3B',
-    password: 'uEVfFo2DONBGZzQxRhbza0OwIH0n3h2zafrSzViUE9rXtWxKPnTu/55gYDeJnIY7'
+  ssl: {
+    key: fs.readFileSync('deploy-cfk/kafka-client-key.pem', 'utf-8'),
+    cert: fs.readFileSync('deploy-cfk/client-cert-signed', 'utf-8'),
   },
 })
 
