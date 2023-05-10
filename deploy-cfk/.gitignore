@@ -1,2 +1,2 @@
 *.pem
-kafka-server.csr
+*.csr
