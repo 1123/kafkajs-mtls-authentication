@@ -1,2 +1,6 @@
 *.pem
 *.csr
+*.jks
+kafka-client-cert-file
+kafka-client-cert-signed
+keystore.p12
