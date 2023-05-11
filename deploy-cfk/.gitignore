@@ -4,3 +4,5 @@
 kafka-client-cert-file
 kafka-client-cert-signed
 keystore.p12
+mds-publickey.txt
+mds-tokenkeypair.txt
