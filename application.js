@@ -10,11 +10,11 @@ const kafka = new Kafka({
   ssl: {
     rejectUnauthorized: false,
     ca: [
-         fs.readFileSync('deploy-cfk/extracted-ca-cert.pem', 'utf-8')
+         fs.readFileSync('deploy-cfk/externalCacerts.pem', 'utf-8')
     ],
-    key: fs.readFileSync('deploy-cfk/extracted-kafka-server-key.pem', 'utf-8'),
+    key: fs.readFileSync('deploy-cfk/kafka-client-key.pem', 'utf-8'),
     //key: fs.readFileSync('deploy-cfk/client-key.pem', 'utf-8'),
-    cert: fs.readFileSync('deploy-cfk/extracted-kafka-server-cert.pem', 'utf-8'),
+    cert: fs.readFileSync('deploy-cfk/kafka-client.pem', 'utf-8'),
   },
 })
 
