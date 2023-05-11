@@ -1,4 +1,5 @@
 const { Kafka } = require('kafkajs')
+const fs = require('fs');
 
 
 const kafka = new Kafka({
@@ -7,8 +8,13 @@ const kafka = new Kafka({
   // authenticationTimeout: 10000,
   // reauthenticationThreshold: 10000,
   ssl: {
-    key: fs.readFileSync('deploy-cfk/kafka-client-key.pem', 'utf-8'),
-    cert: fs.readFileSync('deploy-cfk/client-cert-signed', 'utf-8'),
+    rejectUnauthorized: false,
+    ca: [
+         fs.readFileSync('deploy-cfk/extracted-ca-cert.pem', 'utf-8')
+    ],
+    key: fs.readFileSync('deploy-cfk/extracted-kafka-server-key.pem', 'utf-8'),
+    //key: fs.readFileSync('deploy-cfk/client-key.pem', 'utf-8'),
+    cert: fs.readFileSync('deploy-cfk/extracted-kafka-server-cert.pem', 'utf-8'),
   },
 })
 
@@ -19,7 +25,7 @@ const run = async () => {
   // Producing
   await producer.connect()
   await producer.send({
-    topic: 'test-topic',
+    topic: 'test',
     messages: [
       { value: 'Hello KafkaJS user!' },
     ],
@@ -27,7 +33,7 @@ const run = async () => {
 
   // Consuming
   await consumer.connect()
-  await consumer.subscribe({ topic: 'test-topic', fromBeginning: true })
+  await consumer.subscribe({ topic: 'test', fromBeginning: true })
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
